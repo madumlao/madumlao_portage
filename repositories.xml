@@ -8,6 +8,7 @@
 			<name>Mark David Dumlao</name>
 		</owner>
 		<source type="git">https://github.com/madumlao/madumlao_portage.git</source>
+		<source type="git">git@github.com:madumlao/madumlao_portage.git</source>
 		<feed>https://github.com/madumlao/madumlao_portage/commits/master.atom</feed>
 	</repo>
 </repositories>
