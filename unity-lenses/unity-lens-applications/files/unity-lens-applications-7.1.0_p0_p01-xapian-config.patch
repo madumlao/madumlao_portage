@@ -1,0 +1,36 @@
+diff -Naur unity-lens-applications-7.1.0+13.10.20130816.2.orig/configure.ac unity-lens-applications-7.1.0+13.10.20130816.2/configure.ac
+--- unity-lens-applications-7.1.0+13.10.20130816.2.orig/configure.ac	2013-08-16 18:33:48.000000000 +0800
++++ unity-lens-applications-7.1.0+13.10.20130816.2/configure.ac	2013-08-28 23:15:23.984840749 +0800
+@@ -88,6 +88,8 @@
+ AC_CHECK_HEADER(db.h, [],
+                 AC_MSG_FAILURE([Unable to find db.h. Please install the package libdb-dev]))
+ 
++CPPFLAGS="${CPPFLAGS} $(xapian-config --cxxflags)"
++LIBS="${LIBS} $(xapian-config --libs | sed 's/.*-l//g')"
+ AC_CHECK_HEADER(xapian.h, [],
+                 AC_MSG_FAILURE([Unable to find xapian.h. Please install the package libxapian-dev]))
+ 
+diff -Naur unity-lens-applications-7.1.0+13.10.20130816.2.orig/src/Makefile.am unity-lens-applications-7.1.0+13.10.20130816.2/src/Makefile.am
+--- unity-lens-applications-7.1.0+13.10.20130816.2.orig/src/Makefile.am	2013-08-16 18:33:48.000000000 +0800
++++ unity-lens-applications-7.1.0+13.10.20130816.2/src/Makefile.am	2013-08-28 23:15:44.197840267 +0800
+@@ -45,7 +45,7 @@
+   --target-glib=2.26 \
+   $(MAINTAINER_VALAFLAGS)
+ 
+-unity_package_search_libs = -lxapian -lstdc++
++unity_package_search_libs = -lstdc++
+ 
+ unity_ratings_db_libs = -ldb
+ 
+diff -Naur unity-lens-applications-7.1.0+13.10.20130816.2.orig/tests/unit/Makefile.am unity-lens-applications-7.1.0+13.10.20130816.2/tests/unit/Makefile.am
+--- unity-lens-applications-7.1.0+13.10.20130816.2.orig/tests/unit/Makefile.am	2013-08-16 18:33:48.000000000 +0800
++++ unity-lens-applications-7.1.0+13.10.20130816.2/tests/unit/Makefile.am	2013-08-28 23:15:59.126839911 +0800
+@@ -24,7 +24,7 @@
+ 	$(MAINTAINER_VALAFLAGS) \
+ 	$(NULL)
+ 
+-UNITY_PACKAGE_SEARCH_LIBS = -lxapian -lstdc++
++UNITY_PACKAGE_SEARCH_LIBS = -lstdc++
+ 
+ LDADD = $(LENS_DAEMON_LIBS) \
+ 	$(test_libs) \
